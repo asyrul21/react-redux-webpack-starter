@@ -1,0 +1,12 @@
+.app_navItem {
+  font-size: 14px;
+}
+
+.app_navItem_active {
+  opacity: 1;
+  background-color: #f95959;
+  color: white;
+  &:hover {
+    text-decoration: none;
+  }
+}

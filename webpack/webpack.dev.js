@@ -8,9 +8,17 @@ module.exports = merge(common, {
   devtool: "source-map",
   devServer: {
     port: 3000,
+    historyApiFallback: true,
     static: {
       /* path to index.html */
       directory: path.resolve(__dirname, "../public"),
+    },
+    devMiddleware: {
+      index: "index.html",
+      /**
+       *  writeToDisk: tell webpack to write to dist/ folder as server is running
+       */
+      writeToDisk: true,
     },
     client: {
       /**

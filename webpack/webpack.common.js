@@ -4,9 +4,20 @@ module.exports = {
   entry: path.resolve(__dirname, "../src/index.tsx"),
   output: {
     path: path.resolve(__dirname, "../dist"),
+    publicPath: "/",
   },
   module: {
     rules: [
+      {
+        test: /\.?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      },
       /* Typescript */
       {
         test: /\.tsx?$/,
