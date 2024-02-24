@@ -5,5 +5,9 @@ const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
   mode: "production",
-  plugins: [],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "../public", "index.html"),
+    }),
+  ],
 });
