@@ -1,50 +1,70 @@
-import { PayloadAction } from "@reduxjs/toolkit";
 import { createAppSlice } from "../stateCreateSlice";
 import { UserLogin, UserRegistration } from "./types";
-import { useAppDispatch } from "../stateHooks";
-import { AppDispatch, RootState } from "../../Store";
+import { loginUserAction, registerUserAction } from "./actions";
+import { LOCAL_STORAGE_KEYS } from "../../constants/LocalStorageKeys";
+import { deleteStorageItemsForPage } from "../../utils/LocalStorage";
+
+export type AuthSliceStates = {
+  isAuthenticated: boolean;
+  loggedInUser?: { _id: string; email: string; token: string };
+  loading?: boolean;
+  error?: string;
+};
+
+const AuthInitialState: AuthSliceStates = {
+  isAuthenticated: false,
+  loggedInUser: undefined,
+  loading: false,
+  error: undefined,
+};
+
+export const getAuthInitialState = (): AuthSliceStates => {
+  const userInfo = localStorage.getItem(LOCAL_STORAGE_KEYS.USER_INFO);
+  if (!userInfo || userInfo === "") {
+    return AuthInitialState;
+  }
+  const currentUser = JSON.parse(userInfo);
+  const isAuthenticated =
+    currentUser &&
+    typeof currentUser._id === "string" &&
+    currentUser._id !== "";
+  if (!isAuthenticated) {
+    return AuthInitialState;
+  }
+  return {
+    isAuthenticated,
+    loggedInUser: currentUser,
+    loading: false,
+    error: undefined,
+  };
+};
 
 export const AuthSlice = createAppSlice({
   name: "Auth",
-  initialState: {
-    isAuthenticated: false,
-    loggedInUser: null as unknown,
-    loading: false,
-    error: null as unknown,
-  },
+  initialState: AuthInitialState,
   reducers: (create) => ({
     loginUser: create.asyncThunk(
-      async ({ email, password }: UserLogin, thunkApi) => {
-        //async function
-        //...
-
-        const state = thunkApi.getState() as RootState;
-        const dispatch = thunkApi.dispatch as AppDispatch;
-
-        const { fulfillWithValue, rejectWithValue } = thunkApi;
-
-        // ok
-        if (email === "admin@mail.com") {
-          return fulfillWithValue({ data: "this should be the payload" });
-        }
-        // error
-        throw rejectWithValue({ someKey: "test" });
+      async (data: UserLogin, thunkApi) => {
+        return loginUserAction(data, thunkApi);
       },
       {
         pending: (state) => {
           state.loading = true;
         },
         rejected: (state, action) => {
-          console.log("rejected action:", action);
-          state.error = action.payload;
+          state.error = action.payload as string;
         },
         fulfilled: (state, action) => {
-          console.log("loginUser fullfil action type:", action.type);
-          console.log("loginUser fullfil action payload:", action.payload);
+          // console.log("loginUser fullfil action type:", action.type);
+          // console.log("loginUser fullfil action payload:", action.payload);
 
-          state.loading = false;
-          state.loggedInUser = action.payload;
+          state.loggedInUser = action.payload.data;
           state.isAuthenticated = true;
+          localStorage.removeItem(LOCAL_STORAGE_KEYS.LOGIN_PAGE.email);
+          localStorage.setItem(
+            LOCAL_STORAGE_KEYS.USER_INFO,
+            JSON.stringify(action.payload.data)
+          );
         },
         settled: (state, action) => {
           state.loading = false;
@@ -52,50 +72,18 @@ export const AuthSlice = createAppSlice({
       }
     ),
     registerUser: create.asyncThunk(
-      async (
-        {
-          name,
-          email,
-          password,
-          acceptedTOC,
-          subscriptionPlan,
-        }: UserRegistration,
-        thunkApi
-      ) => {
-        // register user logic
-        // ...
-
-        const { rejectWithValue, fulfillWithValue, dispatch, getState } =
-          thunkApi;
-
-        console.log("dispatching login!");
-
-        dispatch({
-          type: "Auth/loginUser/fulfilled",
-          payload: {
-            name: "test register reducer to login reducer",
-          },
-        });
-
-        return fulfillWithValue({
-          name: "register fulfill return",
-        });
+      async (data: UserRegistration, thunkApi) => {
+        return registerUserAction(data, thunkApi);
       },
       {
         pending: (state) => {
           state.loading = true;
         },
         rejected: (state, action) => {
-          state.loading = false;
+          state.error = action.payload as string;
         },
         fulfilled: (state, action) => {
-          console.log(" Register fulfilled action type:", action.type);
-          console.log(" Register fulfilled action payload:", action.payload);
-
-          // const { payload, type } = action;
-
-          // state.isAuthenticated = true;
-          // state.loggedInUser = payload;
+          deleteStorageItemsForPage("REGISTER_PAGE");
         },
         settled: (state, action) => {
           state.loading = false;
@@ -103,17 +91,20 @@ export const AuthSlice = createAppSlice({
       }
     ),
     logoutUser: create.reducer<string>((state, action) => {
-      console.log("state:", state);
-      console.log("action:", action);
       /**
        * type: Auth/logoutUser
        * payload:
        */
       state.isAuthenticated = false;
-      state.loggedInUser = null;
+      state.loggedInUser = undefined;
+      localStorage.removeItem(LOCAL_STORAGE_KEYS.USER_INFO);
+    }),
+    clearAuthErrors: create.reducer((state, payload) => {
+      state.error = undefined;
     }),
   }),
 });
 
-export const { loginUser, registerUser, logoutUser } = AuthSlice.actions;
+export const { loginUser, registerUser, logoutUser, clearAuthErrors } =
+  AuthSlice.actions;
 export default AuthSlice.reducer;

@@ -8,6 +8,7 @@ import LoginPage from "./Pages/Auth/LoginPage";
 import RegisterPage from "./Pages/Auth/RegisterPage";
 import AppNavbar from "./Containers/AppNavbar/AppNavbar";
 import UnauthorizedPage from "./Pages/Error/UnauthorizedPage";
+import ProtectedPage from "./Pages/Protected/ProtectedPage";
 // import logo from "./logo.svg";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/signup" element={<RegisterPage />} />
           <Route path="/auth/unauthorized" element={<UnauthorizedPage />} />
+          <Route path="/protected" element={<ProtectedPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Main>

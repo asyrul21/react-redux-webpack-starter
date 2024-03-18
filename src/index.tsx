@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import store from "./Store";
 import { Provider } from "react-redux";
 
@@ -8,11 +8,14 @@ import "./styles/global.scss";
 
 import App from "./App";
 
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 console.log("ENV:", process.env.NODE_ENV);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );

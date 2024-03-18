@@ -1,19 +1,20 @@
 import { useEffect } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLoggedInUser } from "./useLoggedInUser";
 
 export const useAuthGuard = (mustBeAdmin = false) => {
+  const navigate = useNavigate();
   const { isAuthenticated, loggedInUser } = useLoggedInUser();
 
   useEffect(() => {
     const notLoggedIn = () => !isAuthenticated || !loggedInUser;
 
     if (notLoggedIn()) {
-      redirect("/auth/unauthorized");
+      navigate("/auth/unauthorized");
     }
     if (mustBeAdmin) {
       if (notLoggedIn() || !loggedInUser.isAdmin) {
-        redirect("/auth/unauthorized");
+        navigate("/auth/unauthorized");
       }
     }
   }, [history, isAuthenticated, loggedInUser, mustBeAdmin]);
