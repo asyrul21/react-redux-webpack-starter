@@ -8,7 +8,7 @@ export const config: {
     API_PREFIX: "/api"
   },
   production: {
-    API_HOST: "TODO",
+    API_HOST: "http://localhost:5000",
     API_PREFIX: "/api"
   }
 };
