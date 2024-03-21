@@ -6,12 +6,11 @@ import {
   FormContainer,
   Banner,
   Label,
-  SubFormContainer,
   SubmitButton,
   Text,
   TextInput,
   View,
-  useFormInput,
+  useFormInput
 } from "reso-ui";
 
 import "./Auth.scss";
@@ -28,7 +27,7 @@ const LoginPage = () => {
     value: emailValue,
     setValue: setEmailValue,
     error: emailValueError,
-    setError: setEmailValueError,
+    setError: setEmailValueError
   } = useFormInput<string>(
     localStorage.getItem(LOCAL_STORAGE_KEYS.LOGIN_PAGE.email) || ""
   );
@@ -37,7 +36,7 @@ const LoginPage = () => {
     value: passwordValue,
     setValue: setPasswordValue,
     error: passwordValueError,
-    setError: setPasswordValueError,
+    setError: setPasswordValueError
   } = useFormInput<string>("");
 
   const handFormSubmit = () => {
@@ -45,7 +44,7 @@ const LoginPage = () => {
     dispatch(clearAuthErrors());
     const userData: UserLogin = {
       email: emailValue,
-      password: passwordValue,
+      password: passwordValue
     };
     dispatch(loginUser(userData));
   };
@@ -56,9 +55,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loggedInUser && typeof loggedInUser._id === "string") {
-      navigate("/protected");
+      navigate("/mypage");
     }
-  }, [loggedInUser?._id, isAuthenticated]);
+  }, [loggedInUser, isAuthenticated, navigate]);
 
   const labelWidth = "142px";
   return (

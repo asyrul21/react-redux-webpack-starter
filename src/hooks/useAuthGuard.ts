@@ -17,10 +17,10 @@ export const useAuthGuard = (mustBeAdmin = false) => {
         navigate("/auth/unauthorized");
       }
     }
-  }, [history, isAuthenticated, loggedInUser, mustBeAdmin]);
+  }, [isAuthenticated, loggedInUser, mustBeAdmin, navigate]);
 
   return {
     isAuthenticated,
-    loggedInUser,
+    loggedInUser
   };
 };

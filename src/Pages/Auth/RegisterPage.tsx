@@ -81,9 +81,9 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (loggedInUser && typeof loggedInUser._id === "string") {
-      navigate("/protected");
+      navigate("/mypage");
     }
-  }, [loggedInUser?._id, isAuthenticated]);
+  }, [loggedInUser, isAuthenticated, navigate]);
 
   const disableSubmit =
     !acceptedTOC ||
