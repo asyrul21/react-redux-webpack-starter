@@ -1,12 +1,14 @@
 export const config: {
   [key: string]: {
-    [key: string]: string | number;
+    [key: string]: string;
   };
 } = {
   development: {
-    API_BASE_URL: "http://localhost:5000/api",
+    API_HOST: "http://localhost:5000",
+    API_PREFIX: "/api"
   },
   production: {
-    API_BASE_URL: "http://localhost:5000/api",
-  },
+    API_HOST: "TODO",
+    API_PREFIX: "/api"
+  }
 };

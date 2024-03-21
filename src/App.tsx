@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AppContext } from "./contexts/AppContext/AppContext";
 import { Main } from "reso-ui";
 
 import HomePage from "./Pages/Home/HomePage";
@@ -9,9 +10,15 @@ import RegisterPage from "./Pages/Auth/RegisterPage";
 import AppNavbar from "./Containers/AppNavbar/AppNavbar";
 import UnauthorizedPage from "./Pages/Error/UnauthorizedPage";
 import ProtectedPage from "./Pages/Protected/ProtectedPage";
+import { useServerSocket } from "./hooks/useServerSocket";
 // import logo from "./logo.svg";
 
 function App() {
+  const { serverSocketConnected } = useContext(AppContext);
+
+  useServerSocket();
+
+  console.log("Server side socket connected:", serverSocketConnected);
   return (
     <BrowserRouter>
       <AppNavbar />

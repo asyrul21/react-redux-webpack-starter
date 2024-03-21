@@ -1,7 +1,7 @@
 import {
   AxiosHeaders,
   AxiosRequestConfig,
-  RawAxiosRequestHeaders,
+  RawAxiosRequestHeaders
 } from "axios";
 import { config } from "../../config";
 
@@ -10,7 +10,7 @@ const API_BASE_URL = APP_CONFIG.API_BASE_URL;
 
 export enum RequestContentType {
   json = "application/json",
-  multipart = "multipart/form-data",
+  multipart = "multipart/form-data"
 }
 
 export interface RequestConfig {
@@ -34,14 +34,12 @@ const convertObjectToURLParams = (object: any): string => {
 const buildRequestConfig = (config: RequestConfig): AxiosRequestConfig => {
   const { token, contentType } = config;
 
-  let configHeader: Partial<RawAxiosRequestHeaders> = {
-    "Access-Control-Allow-Origin": API_BASE_URL,
-  };
+  let configHeader: Partial<RawAxiosRequestHeaders> = {};
 
   if (typeof token === "string" && token !== "") {
     configHeader = {
       ...configHeader,
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`
     };
   }
 
@@ -49,12 +47,12 @@ const buildRequestConfig = (config: RequestConfig): AxiosRequestConfig => {
     if (contentType === RequestContentType.json) {
       configHeader = {
         ...configHeader,
-        "Content-Type": RequestContentType.json,
+        "Content-Type": RequestContentType.json
       };
     } else if (contentType === RequestContentType.multipart) {
       configHeader = {
         ...configHeader,
-        "Content-Type": RequestContentType.multipart,
+        "Content-Type": RequestContentType.multipart
       };
     }
   }
@@ -71,7 +69,7 @@ const buildMultipartFormDataHeaderConfig = (
 ): AxiosRequestConfig => {
   return buildRequestConfig({
     token,
-    contentType: RequestContentType.multipart,
+    contentType: RequestContentType.multipart
   });
 };
 
@@ -79,5 +77,5 @@ export {
   extractErrorMessage,
   buildJsonHeaderConfig,
   convertObjectToURLParams,
-  buildMultipartFormDataHeaderConfig,
+  buildMultipartFormDataHeaderConfig
 };

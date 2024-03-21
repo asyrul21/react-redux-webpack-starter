@@ -12,7 +12,7 @@ import {
   Text,
   TextInput,
   View,
-  useFormInput,
+  useFormInput
 } from "reso-ui";
 import { UserRegistration } from "../../state/auth/types";
 import { clearAuthErrors, registerUser } from "../../state/auth/slice";
@@ -26,7 +26,7 @@ const RegisterPage = () => {
     value: emailValue,
     setValue: setEmailValue,
     error: emailValueError,
-    setError: setEmailValueError,
+    setError: setEmailValueError
   } = useFormInput<string>(
     localStorage.getItem(LOCAL_STORAGE_KEYS.REGISTER_PAGE.email) || ""
   );
@@ -35,21 +35,21 @@ const RegisterPage = () => {
     value: passwordValue,
     setValue: setPasswordValue,
     error: passwordValueError,
-    setError: setPasswordValueError,
+    setError: setPasswordValueError
   } = useFormInput<string>("");
 
   const {
     value: confirmPasswordValue,
     setValue: setConfirmPasswordValue,
     error: confirmPasswordValueError,
-    setError: setConfirmPasswordValueError,
+    setError: setConfirmPasswordValueError
   } = useFormInput<string>("");
 
   const {
     value: nameValue,
     setValue: setNameValue,
     error: nameValueError,
-    setError: setNameValueError,
+    setError: setNameValueError
   } = useFormInput<string>(
     localStorage.getItem(LOCAL_STORAGE_KEYS.REGISTER_PAGE.name) || ""
   );
@@ -58,7 +58,7 @@ const RegisterPage = () => {
     value: acceptedTOC,
     setValue: setAcceptedTOC,
     error: acceptedTOCError,
-    setError: setAcceptedTOCError,
+    setError: setAcceptedTOCError
   } = useFormInput<boolean>(false);
 
   const handFormSubmit = () => {
@@ -70,7 +70,7 @@ const RegisterPage = () => {
       name: nameValue,
       email: emailValue,
       password: passwordValue,
-      acceptedTOC,
+      acceptedTOC
     };
     dispatch(registerUser(userData));
   };
@@ -179,7 +179,7 @@ const RegisterPage = () => {
                     }
                     return false;
                   },
-                  errorMessage: "Your passwords do not match",
+                  errorMessage: "Your passwords do not match"
                 }}
               />
             </ControlWrapper>
@@ -187,12 +187,11 @@ const RegisterPage = () => {
               <Checkbox
                 id="registerPage_toc"
                 required
-                rootStyles={{ marginRight: "0" }}
                 value={acceptedTOC}
                 onChange={(val) => setAcceptedTOC(val)}
                 error={acceptedTOCError}
                 setError={setAcceptedTOCError}
-                inputStyles={{ marginRight: "42px" }}
+                inputStyles={{ marginRight: "32px" }}
               >
                 By checking this box, I agree to the Terms and Conditions of
                 using this web application.
