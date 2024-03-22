@@ -1,12 +1,8 @@
 import {
-  AxiosHeaders,
+  // AxiosHeaders,
   AxiosRequestConfig,
   RawAxiosRequestHeaders
 } from "axios";
-import { config } from "../../config";
-
-const APP_CONFIG = config[process.env.NODE_ENV as string];
-const API_BASE_URL = APP_CONFIG.API_BASE_URL;
 
 export enum RequestContentType {
   json = "application/json",

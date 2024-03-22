@@ -1,7 +1,7 @@
+import type { IEnvConfig } from "./types";
+
 export const config: {
-  [key: string]: {
-    [key: string]: string;
-  };
+  [key: string]: IEnvConfig;
 } = {
   development: {
     API_HOST: "http://localhost:5000",
