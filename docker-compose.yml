@@ -1,0 +1,17 @@
+version: "3"
+services:
+  frontend:
+    container_name: react_frontend
+    build: .
+    ports:
+      - "3000:3000"
+    #
+    # if you want to develop
+    #
+    # volumes:
+    #   - ./frontend/src:/app/src
+    #
+    # interactive mode
+    #
+    stdin_open: true
+    tty: true

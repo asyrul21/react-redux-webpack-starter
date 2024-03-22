@@ -70,7 +70,7 @@ module.exports = merge(common, {
       patterns: [
         {
           from: path.resolve(__dirname, "../public"),
-          to: "",
+          to: "public",
           globOptions: {
             ignore: ["**/index.html"]
           }
