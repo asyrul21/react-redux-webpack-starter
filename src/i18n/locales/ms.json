@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "navigation": {
+      "log_in": "Daftar Masuk",
+      "sign_up": "Daftar Baru",
+      "log_out": "Daftar Keluar"
+    },
+    "home_page": {
+      "header": "Selamat Sejahtera Dunia"
+    }
+  }
+}

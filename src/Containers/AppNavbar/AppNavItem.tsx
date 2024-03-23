@@ -11,7 +11,7 @@ const AppNavItem = ({ children, to }: any) => {
   const navItemClasses = classnames({
     navItem_base: true,
     app_navItem: true,
-    app_navItem_active: pathname === to,
+    app_navItem_active: pathname === to
   });
 
   //   console.log("location path:", pathname);
@@ -19,7 +19,15 @@ const AppNavItem = ({ children, to }: any) => {
     <NavItem
       renderCustomNavItem={({ active }) => {
         return (
-          <Link to={to} className={navItemClasses}>
+          <Link
+            to={to}
+            className={navItemClasses}
+            style={{
+              width: "unset",
+              minWidth: "90px",
+              padding: "0 15px"
+            }}
+          >
             {children}
           </Link>
         );

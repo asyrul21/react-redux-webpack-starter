@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import store from "./Store";
 import { Provider } from "react-redux";
+import "./i18n/i18n";
 
 import "reso-ui/styles";
 import "./styles/global.scss";

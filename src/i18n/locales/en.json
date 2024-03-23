@@ -1,0 +1,12 @@
+{
+  "translation": {
+    "navigation": {
+      "log_in": "Log In",
+      "sign_up": "Sign Up",
+      "log_out": "Log Out"
+    },
+    "home_page": {
+      "header": "Hello World"
+    }
+  }
+}
