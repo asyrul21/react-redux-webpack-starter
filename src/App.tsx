@@ -16,6 +16,21 @@ import { useServerSocket } from "./hooks/useServerSocket";
 import protectPage from "./wrappers/protectPage";
 const MyPageProtected = protectPage(MyPage);
 
+// helmet
+import withMetaHelmet from "./wrappers/withMetaHelmet";
+const HomePageWithMeta = withMetaHelmet(HomePage, {
+  title: "Home - My React App",
+  description: "Welcome to the React App"
+});
+const LoginPageWithMeta = withMetaHelmet(LoginPage, {
+  title: "Log In - My React App",
+  description: "Log in to the App"
+});
+const RegisterPageWithMeta = withMetaHelmet(RegisterPage, {
+  title: "Sign Up - My React App",
+  description: "User registration page"
+});
+
 function App() {
   const { serverSocketConnected } = useContext(AppContext);
 
@@ -27,9 +42,9 @@ function App() {
       <AppNavbar />
       <Main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/signup" element={<RegisterPage />} />
+          <Route path="/" element={<HomePageWithMeta />} />
+          <Route path="/auth/login" element={<LoginPageWithMeta />} />
+          <Route path="/auth/signup" element={<RegisterPageWithMeta />} />
           <Route path="/auth/unauthorized" element={<UnauthorizedPage />} />
           <Route path="/mypage" element={<MyPageProtected />} />
           <Route path="*" element={<NotFoundPage />} />
