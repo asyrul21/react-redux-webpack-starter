@@ -34,9 +34,8 @@ const LocalesNavItem = () => {
                 );
               }
               return (
-                <>
+                <React.Fragment key={`app_locale_selector_${lang}`}>
                   <a
-                    key={`app_locale_selector_${lang}`}
                     role="button"
                     onClick={() => {
                       handleClickLocale(lang);
@@ -48,7 +47,7 @@ const LocalesNavItem = () => {
                     {lang}
                   </a>{" "}
                   {" | "}
-                </>
+                </React.Fragment>
               );
             })}
           </div>

@@ -6,7 +6,26 @@ React Dom Version: v18.2.0
 
 Node: v20.11.0
 
-## Setup
+## How to Use
+
+1. Git clone
+
+2. Rename project folder and navigate into it
+
+```bash
+mv react-redux-webpack-starter your-project-name
+cd your-project-name
+```
+
+3. Reset Git
+
+```
+rm -rf .git
+```
+
+4. Make changes to your Package.json accordingly
+
+## Run
 
 1. Develop
 

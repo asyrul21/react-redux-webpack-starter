@@ -5,8 +5,8 @@ type config = {
   forAdmin?: boolean;
 };
 
-const protectPage = (Page: () => JSX.Element, config?: config) =>
-  function ProtectedPage() {
+const withAuth = (Page: () => JSX.Element, config?: config) =>
+  function PageWithAuth() {
     const { forAdmin } = config || {};
     const { isAuthenticated, loggedInUser } = useAuthGuard(forAdmin ?? false);
     if (!isAuthenticated || !loggedInUser) {
@@ -15,4 +15,4 @@ const protectPage = (Page: () => JSX.Element, config?: config) =>
     return <Page />;
   };
 
-export default protectPage;
+export default withAuth;

@@ -13,8 +13,8 @@ import MyPage from "./Pages/MyProtectedPage/MyPage";
 import { useServerSocket } from "./hooks/useServerSocket";
 
 // protect
-import protectPage from "./wrappers/protectPage";
-const MyPageProtected = protectPage(MyPage);
+import withAuth from "./wrappers/withAuth";
+const MyPageProtected = withAuth(MyPage);
 
 // helmet
 import withMetaHelmet from "./wrappers/withMetaHelmet";
